@@ -25,7 +25,11 @@ if you have all the requirements installed, you can start using Ardupy.
 
 ## How to use
 
-learn from these examples:
+Upload the [ardupy/ardupy.ino](https://github.com/dbarattini/Ardupy/blob/master/ardupy/ardupy.ino) sketch to your Arduino Uno
+
+Create a new project and import ardupy
+
+Learn from these examples how to use ardupy:
 
 - [use a button](https://github.com/dbarattini/Ardupy/blob/master/examples/button.py)
 - [use a led](https://github.com/dbarattini/Ardupy/blob/master/examples/led.py)
