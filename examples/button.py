@@ -1,5 +1,4 @@
 from ardupy import *
-import time
 
 arduino = Arduino("COM5", debug_mode=YES)   # arduino connected to port COM5 with baudrate 9600
 
