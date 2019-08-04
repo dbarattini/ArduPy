@@ -16,6 +16,8 @@ led_rgb.setBlueValue(50)
 # returns a dictionary line {"red": 150, "green": 100, "blue": 50}
 values = led_rgb.getValues()
 
+time.sleep(1)
+
 led_rgb.setRedValue(0)
 led_rgb.setGreenValue(0)
 led_rgb.setBlueValue(0)
