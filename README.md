@@ -5,7 +5,7 @@
 
 ## About
 
-ArduPy allows you to easily control transducers connected to an Arduino Uno with a Raspberry Pi
+ArduPy allows you to easily control transducers connected to an Arduino Uno using Python (ex. using a PC, Raspberry Pi, ...)
 
 ## Where to start
 
