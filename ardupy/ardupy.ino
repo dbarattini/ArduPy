@@ -6,7 +6,7 @@ char tempChars[numChars];        // temporary array for use when parsing
       // variables to hold the parsed data
 char cmd[numChars] = {0};
 int pin = 0;
-int payload = 0.0;
+int payload = 0;
 
 boolean newData = false;
 
@@ -14,7 +14,7 @@ boolean newData = false;
 
 void setup() {
     Serial.begin(9600);
-    Serial.println("This demo expects 3 pieces of data - text (pinMode|digitalRead|digitalWrite), an integer (pin) and an integer (0|1)");
+    Serial.println("This program expects 3 pieces of data - text: a string (command), an integer (pin) and an integer (payload)");
     Serial.println("Enter data in this style <pinMode, 13, 1>  ");
     Serial.println("Input -> 0 | Output -> 1 | Low -> 0 | High -> 1");
 }
@@ -85,13 +85,13 @@ void parseData() {      // split the data into its parts
     char * strtokIndx; // this is used by strtok() as an index
 
     strtokIndx = strtok(tempChars,",");      // get the first part - the string
-    strcpy(cmd, strtokIndx); // copy it to messageFromPC
+    strcpy(cmd, strtokIndx); // copy it to cmd
  
     strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
     pin = atoi(strtokIndx);     // convert this part to an integer
 
     strtokIndx = strtok(NULL, ",");
-    payload = atoi(strtokIndx);     // convert this part to a float
+    payload = atoi(strtokIndx);     // convert this part to an integer
 
 }
 
