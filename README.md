@@ -1,11 +1,11 @@
-# Ardupy
+# ArduPy
 
 [![Language](https://img.shields.io/badge/language-python-blue.svg?style=flat)](https://www.python.org/)
 [![Module](https://img.shields.io/badge/module-pyserial-brightgreen.svg?style=flat)](https://pythonhosted.org/pyserial/)
 
 ## About
 
-Ardupy allows you to easily control transducers connected to an Arduino Uno with a Raspberry Pi
+ArduPy allows you to easily control transducers connected to an Arduino Uno with a Raspberry Pi
 
 ## Where to start
 
@@ -21,7 +21,7 @@ cd Ardupy
 pip install -r requirements.txt
 ```
 
-if you have all the requirements installed, you can start using Ardupy.
+if you have all the requirements installed, you can start using ArduPy.
 
 ## How to use
 
