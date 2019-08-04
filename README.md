@@ -5,7 +5,7 @@
 
 ## About
 
-Framework that allows you to easily control an Arduino Uno with a Raspberry Pi
+Ardupy allows you to easily control transducers connected to an Arduino Uno with a Raspberry Pi
 
 ## Where to start
 
@@ -29,7 +29,7 @@ Upload the [ardupy/ardupy.ino](https://github.com/dbarattini/Ardupy/blob/master/
 
 Create a new python project and import ardupy
 
-Learn from these examples how to use the Ardupy Framework:
+Learn from these examples:
 
 - [use a button](https://github.com/dbarattini/Ardupy/blob/master/examples/button.py)
 - [use a led](https://github.com/dbarattini/Ardupy/blob/master/examples/led.py)
@@ -37,7 +37,7 @@ Learn from these examples how to use the Ardupy Framework:
 - [use a photoresistor](https://github.com/dbarattini/Ardupy/blob/master/examples/photoresistor.py)
 - [use an RGB led](https://github.com/dbarattini/Ardupy/blob/master/examples/led_rgb.py)
 
-## Supported components (for now)
+## Supported transducers (for now)
 
 - button
 - led
