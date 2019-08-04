@@ -27,7 +27,7 @@ if you have all the requirements installed, you can start using Ardupy.
 
 Upload the [ardupy/ardupy.ino](https://github.com/dbarattini/Ardupy/blob/master/ardupy/ardupy.ino) sketch to your Arduino Uno
 
-Create a new project and import ardupy
+Create a new python project and import ardupy
 
 Learn from these examples how to use ardupy:
 
