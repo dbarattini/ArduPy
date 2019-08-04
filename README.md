@@ -29,7 +29,7 @@ Upload the [ardupy/ardupy.ino](https://github.com/dbarattini/Ardupy/blob/master/
 
 Create a new python project and import ardupy
 
-Learn from these examples how to use ardupy:
+Learn from these examples how to use the Ardupy Framework:
 
 - [use a button](https://github.com/dbarattini/Ardupy/blob/master/examples/button.py)
 - [use a led](https://github.com/dbarattini/Ardupy/blob/master/examples/led.py)
