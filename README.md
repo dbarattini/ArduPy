@@ -42,7 +42,7 @@ Learn from these examples:
 
 You can also use ArduPy to comunicate directly to arduino
 
-- [use arduino directly](https://github.com/dbarattini/ArduPy/blob/master/examples/ardupy.py)
+- [use arduino directly](https://github.com/dbarattini/ArduPy/blob/master/examples/arduino.py)
 
 ## Supported transducers (for now)
 
