@@ -5,7 +5,7 @@ import time
 arduino = Arduino("COM5", debug_mode=YES)
 
 try:
-    servo = arduino.addServo(6)  # using a servo connected to pin 9
+    servo = arduino.addServo(9)  # using a servo connected to pin 9
 except  IndexError as e:
     # message: 'Too many Servos! If you want to add more Servos you have to modify the maxServos constant in ardupy.ino'
     print(str(e))
