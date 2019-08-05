@@ -36,6 +36,7 @@ Learn from these examples:
 - [use a temperature sensor](https://github.com/dbarattini/Ardupy/blob/master/examples/temperature_sensor.py)
 - [use a photoresistor](https://github.com/dbarattini/Ardupy/blob/master/examples/photoresistor.py)
 - [use an RGB led](https://github.com/dbarattini/Ardupy/blob/master/examples/led_rgb.py)
+- [use a servo](https://github.com/dbarattini/ArduPy/blob/master/examples/servo.py)
 
 ## Supported transducers (for now)
 
@@ -44,3 +45,4 @@ Learn from these examples:
 - temperature sensor
 - photoresistor
 - RGB led
+- servo
