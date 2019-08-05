@@ -18,8 +18,9 @@ A7 = 21
 YES = 1
 NO = 0
 
+
 class Arduino:
-    def __init__(self, port="COM1", baudrate=9600, debug_mode= NO):
+    def __init__(self, port="COM1", baudrate=9600, debug_mode=NO):
         self.conn = serial.Serial(port, baudrate)
         print("ARDUINO: CONNECTED")
         self.conn.readline()
@@ -36,7 +37,7 @@ class Arduino:
         else:
             self.conn.readline().decode()
 
-    def digitalWrite(self, pin, value): # value = 0 | 1
+    def digitalWrite(self, pin, value):  # value = 0 | 1
         self.conn.write(("<digitalWrite, " + str(pin) +
                          ", " + str(value) + ">").encode())
         self.conn.flush()
@@ -90,6 +91,22 @@ class Arduino:
         else:
             self.conn.readline().decode()
 
+    def tone(self, pin, pitch, time):
+        self.conn.write(
+            ("<tone, " + str(pin) + ", " + str(pitch) + ">").encode())
+        self.conn.flush()
+        if(self.debug_mode):
+            print("ARDUINO:", self.conn.readline().decode(), end="")
+        else:
+            self.conn.readline().decode()
+        self.conn.write(
+            ("<tone, " + str(pin) + ", " + str(time) + ">").encode())
+        self.conn.flush()
+        if(self.debug_mode):
+            print("ARDUINO:", self.conn.readline().decode(), end="")
+        else:
+            self.conn.readline().decode()
+
     def addLed(self, pin):
         return Led(pin, self)
 
@@ -110,6 +127,9 @@ class Arduino:
 
     def addPotentiometer(self, pin):
         return Potentiometer(pin, self)
+
+    def addPiezo(self, pin):
+        return Piezo(pin, self)
 
     def closeConnection(self):
         self.conn.close()
@@ -143,16 +163,18 @@ class Button:
     def isPressed(self):
         return self.host.digitalRead(self.pin)
 
+
 class TemperatureSensor:
     def __init__(self, pin, host, voltageToTemp):
         self.pin = pin
         self.host = host
         self.voltageToTemp = voltageToTemp
-        
+
     def getTemperature(self):
         sensorVal = self.host.analogRead(self.pin)
         voltage = (sensorVal/1024.0) * 5.0
         return self.voltageToTemp(voltage)
+
 
 class Photoresistor:
     def __init__(self, pin, host):
@@ -162,13 +184,14 @@ class Photoresistor:
     def getValue(self):
         return self.host.analogRead(self.pin)
 
+
 class LedRGB:
     def __init__(self, pin_r, pin_g, pin_b, host):
         self.pin_r = pin_r
         self.pin_g = pin_g
         self.pin_b = pin_b
         self.host = host
-        self.values = {"red": 0, "green":0, "blue":0}
+        self.values = {"red": 0, "green": 0, "blue": 0}
         host.setPin(pin_r, OUTPUT)
         host.setPin(pin_g, OUTPUT)
         host.setPin(pin_b, OUTPUT)
@@ -189,6 +212,7 @@ class LedRGB:
     def getValues(self):
         return self.values
 
+
 class Servo:
     def __init__(self, pin, host):
         self.pin = pin
@@ -196,7 +220,8 @@ class Servo:
         self.degrees = 0
         self.name = host.servoAttach(pin)
         if(self.name == -1):
-            raise IndexError('Too many Servos! If you want to add more Servos you have to modify the maxServos constant in ardupy.ino')
+            raise IndexError(
+                'Too many Servos! If you want to add more Servos you have to modify the maxServos constant in ardupy.ino')
 
     def rotate(self, degrees):
         self.host.servoWrite(self.name, degrees)
@@ -205,6 +230,7 @@ class Servo:
     def getPosition(self):
         return self.degrees
 
+
 class Potentiometer:
     def __init__(self, pin, host):
         self.pin = pin
@@ -212,3 +238,12 @@ class Potentiometer:
 
     def getValue(self):
         return self.host.analogRead(self.pin)
+
+
+class Piezo:
+    def __init__(self, pin, host):
+        self.pin = pin
+        self.host = host
+
+    def tone(self, pitch, time):  # time in milliseconds
+        self.host.tone(self.pin, pitch, time)

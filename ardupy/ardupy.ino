@@ -12,6 +12,7 @@ int n_servos = 0;
 char cmd[numChars] = {0};
 int pin = 0;
 int payload = 0;
+int pitch = -1;
 
 boolean newData = false;
 
@@ -57,6 +58,13 @@ void loop() {
           }      
         } else if(strcmp(cmd,"servoWrite") == 0){
           servos[pin].write(payload); // pin is the servo position in the array
+        } else if(strcmp(cmd,"tone") == 0){
+          if(pitch == -1){  // first message containing pitch as payload
+            pitch = payload;
+          } else{           // second message containing time as payload
+            tone(pin, pitch, payload);
+            pitch = -1;
+          }
         }
         newData = false;
     }
