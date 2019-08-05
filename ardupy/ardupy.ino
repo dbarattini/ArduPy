@@ -1,7 +1,12 @@
+#include <Servo.h>
 
 const byte numChars = 32;
+const byte maxServos = 9;
+
 char receivedChars[numChars];
 char tempChars[numChars];        // temporary array for use when parsing
+Servo servos[maxServos];
+int n_servos = 0;
 
       // variables to hold the parsed data
 char cmd[numChars] = {0};
@@ -29,6 +34,7 @@ void loop() {
             //   because strtok() used in parseData() replaces the commas with \0
         parseData();
         showParsedData();
+        
         if(strcmp(cmd,"pinMode") == 0){
           pinMode(pin, payload);
         } else if(strcmp(cmd,"digitalWrite") == 0){
@@ -39,7 +45,19 @@ void loop() {
           Serial.println(analogRead(pin));
         } else if(strcmp(cmd,"analogWrite") == 0){
           analogWrite(pin, payload);
-        } 
+        } else if(strcmp(cmd,"servoAttach") == 0){
+          if(n_servos < maxServos){
+            Servo newServo;
+            newServo.attach(pin);
+            servos[n_servos] = newServo;
+            Serial.println(n_servos);
+            n_servos ++;
+          } else{
+            Serial.println(-1);
+          }      
+        } else if(strcmp(cmd,"servoWrite") == 0){
+          servos[pin].write(payload); // pin is the servo position in the array
+        }
         newData = false;
     }
 }
@@ -98,5 +116,9 @@ void parseData() {      // split the data into its parts
 //============
 
 void showParsedData() {
-    Serial.println("CMD " + String(cmd) + " PIN " + String(pin) + " PAYLOAD " + String(payload));
+    if(strcmp(cmd, "servoWrite") == 0){
+      Serial.println("CMD " + String(cmd) + " NAME " + String(pin) + " PAYLOAD " + String(payload));
+    } else{
+      Serial.println("CMD " + String(cmd) + " PIN " + String(pin) + " PAYLOAD " + String(payload));
+    }
 }

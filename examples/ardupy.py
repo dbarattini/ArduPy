@@ -72,6 +72,24 @@ class Arduino:
             self.conn.readline().decode()
         return int(self.conn.readline().decode())
 
+    def servoAttach(self, pin):
+        self.conn.write(("<servoAttach, " + str(pin) + " , 0>").encode())
+        self.conn.flush()
+        if(self.debug_mode):
+            print("ARDUINO:", self.conn.readline().decode(), end="")
+        else:
+            self.conn.readline().decode()
+        return int(self.conn.readline().decode())
+
+    def servoWrite(self, name, value):
+        self.conn.write(("<servoWrite, " + str(name) +
+                         ", " + str(value) + ">").encode())
+        self.conn.flush()
+        if(self.debug_mode):
+            print("ARDUINO:", self.conn.readline().decode(), end="")
+        else:
+            self.conn.readline().decode()
+
     def addLed(self, pin):
         return Led(pin, self)
 
@@ -86,6 +104,9 @@ class Arduino:
 
     def addLedRGB(self, pin_r, pin_g, pin_b):
         return LedRGB(pin_r, pin_g, pin_b, self)
+
+    def addServo(self, pin):
+        return Servo(pin, self)
 
     def closeConnection(self):
         self.conn.close()
@@ -164,5 +185,21 @@ class LedRGB:
 
     def getValues(self):
         return self.values
+
+class Servo:
+    def __init__(self, pin, host):
+        self.pin = pin
+        self.host = host
+        self.degrees = 0
+        self.name = host.servoAttach(pin)
+        if(self.name == -1):
+            raise IndexError('Too many Servos! If you want to add more Servos you have to modify the maxServos constant in ardupy.ino')
+
+    def rotate(self, degrees):
+        self.host.servoWrite(self.name, degrees)
+        self.degrees = degrees
+
+    def getPosition(self):
+        return self.degrees
 
     
