@@ -40,6 +40,10 @@ Learn from these examples:
 - [use a potentiometer](https://github.com/dbarattini/ArduPy/blob/master/examples/potentiometer.py)
 - [use a piezo](https://github.com/dbarattini/ArduPy/blob/master/examples/piezo.py)
 
+You can also use ArduPy to comunicate directly to arduino
+
+- [use arduino directly]()
+
 ## Supported transducers (for now)
 
 - button
