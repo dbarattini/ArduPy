@@ -8,4 +8,9 @@ piezo = arduino.addPiezo(8)    # using a piezo connected to pin 8
 
 piezo.tone(50, 100)            #  calls arduino tone function with pitch = 50 and duration = 100ms
 
+piezo.noTone()                 # calls arduino noTone function that stops the piezo
+
+piezo.tone(50, 100)
+
+
 arduino.closeConnection()      # close connection to arduino

@@ -107,6 +107,15 @@ class Arduino:
         else:
             self.conn.readline().decode()
 
+    def noTone(self, pin):
+        self.conn.write(
+            ("<noTone, " + str(pin) + ", 0>").encode())
+        self.conn.flush()
+        if(self.debug_mode):
+            print("ARDUINO:", self.conn.readline().decode(), end="")
+        else:
+            self.conn.readline().decode()
+
     def addLed(self, pin):
         return Led(pin, self)
 
@@ -247,3 +256,6 @@ class Piezo:
 
     def tone(self, pitch, time):  # time in milliseconds
         self.host.tone(self.pin, pitch, time)
+
+    def noTone(self):
+        self.host.noTone(self.pin)

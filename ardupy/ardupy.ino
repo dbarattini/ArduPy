@@ -65,6 +65,8 @@ void loop() {
             tone(pin, pitch, payload);
             pitch = -1;
           }
+        } else if(strcmp(cmd,"noTone") == 0){
+          noTone(pin);
         }
         newData = false;
     }
