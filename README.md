@@ -38,7 +38,7 @@ Learn from these examples:
 - [use an RGB led](https://github.com/dbarattini/Ardupy/blob/master/examples/led_rgb.py)
 - [use a servo](https://github.com/dbarattini/ArduPy/blob/master/examples/servo.py)
 - [use a potentiometer](https://github.com/dbarattini/ArduPy/blob/master/examples/potentiometer.py)
-- [use a piezo]()
+- [use a piezo](https://github.com/dbarattini/ArduPy/blob/master/examples/piezo.py)
 
 ## Supported transducers (for now)
 
