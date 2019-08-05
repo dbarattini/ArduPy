@@ -16,8 +16,8 @@ print(servo.getPosition()) # initial position = 0 degree
 
 time.sleep(1)
 
-servo.rotate(90)            # rotate the servo in position = 45 degree
-print(servo.getPosition())  # returns 45
+servo.rotate(90)            # rotate the servo in position = 90 degree
+print(servo.getPosition())  # returns 90
 
 time.sleep(1)
 
