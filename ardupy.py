@@ -108,6 +108,9 @@ class Arduino:
     def addServo(self, pin):
         return Servo(pin, self)
 
+    def addPotentiometer(self, pin):
+        return Potentiometer(pin, self)
+
     def closeConnection(self):
         self.conn.close()
 
@@ -202,4 +205,10 @@ class Servo:
     def getPosition(self):
         return self.degrees
 
-    
+class Potentiometer:
+    def __init__(self, pin, host):
+        self.pin = pin
+        self.host = host
+
+    def getValue(self):
+        return self.host.analogRead(self.pin)

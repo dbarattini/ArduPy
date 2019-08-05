@@ -3,8 +3,10 @@ from ardupy import *
 # arduino connected to port COM5 with baudrate 9600
 arduino = Arduino("COM5", debug_mode=YES)
 
-pr = arduino.addPhotoresistor(A0)   # using a photoresistor connected to pin A0
+# using a potentiometer connected to pin A0
+pot = arduino.addPotentiometer(A0)
 
-value = pr.getValue()               # returns the value of the photoresistor in [0, 1023]
+# returns the value of the potentiometer in [0, 1023]
+value = pot.getValue()
 
 arduino.closeConnection()   # close connection to arduino
