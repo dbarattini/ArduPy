@@ -93,14 +93,7 @@ class Arduino:
 
     def tone(self, pin, pitch, time):
         self.conn.write(
-            ("<tone, " + str(pin) + ", " + str(pitch) + ">").encode())
-        self.conn.flush()
-        if(self.debug_mode):
-            print("ARDUINO:", self.conn.readline().decode(), end="")
-        else:
-            self.conn.readline().decode()
-        self.conn.write(
-            ("<tone, " + str(pin) + ", " + str(time) + ">").encode())
+            ("<tone, " + str(pin) + ", " + str(pitch) + ", " + str(time) + ">").encode())
         self.conn.flush()
         if(self.debug_mode):
             print("ARDUINO:", self.conn.readline().decode(), end="")

@@ -10,9 +10,8 @@ int n_servos = 0;
 
       // variables to hold the parsed data
 char cmd[numChars] = {0};
-int pin = 0;
-int payload = 0;
-int pitch = -1;
+int payloads[32];
+int i = -1;
 
 boolean newData = false;
 
@@ -20,7 +19,7 @@ boolean newData = false;
 
 void setup() {
     Serial.begin(9600);
-    Serial.println("This program expects 3 pieces of data - text: a string (command), an integer (pin) and an integer (payload)");
+    Serial.println("This program expects pieces of data - text: a string (command), an sequence of integers (payload)");
     Serial.println("Enter data in this style <pinMode, 13, 1>  ");
     Serial.println("Input -> 0 | Output -> 1 | Low -> 0 | High -> 1");
 }
@@ -37,19 +36,19 @@ void loop() {
         showParsedData();
         
         if(strcmp(cmd,"pinMode") == 0){
-          pinMode(pin, payload);
+          pinMode(payloads[0], payloads[1]);
         } else if(strcmp(cmd,"digitalWrite") == 0){
-          digitalWrite(pin, payload);
+          digitalWrite(payloads[0], payloads[1]);
         } else if(strcmp(cmd,"digitalRead") == 0){
-          Serial.println(digitalRead(pin));
+          Serial.println(digitalRead(payloads[0]));
         } else if(strcmp(cmd,"analogRead") == 0){
-          Serial.println(analogRead(pin));
+          Serial.println(analogRead(payloads[0]));
         } else if(strcmp(cmd,"analogWrite") == 0){
-          analogWrite(pin, payload);
+          analogWrite(payloads[0], payloads[1]);
         } else if(strcmp(cmd,"servoAttach") == 0){
           if(n_servos < maxServos){
             Servo newServo;
-            newServo.attach(pin);
+            newServo.attach(payloads[0]);
             servos[n_servos] = newServo;
             Serial.println(n_servos);
             n_servos ++;
@@ -57,17 +56,13 @@ void loop() {
             Serial.println(-1);
           }      
         } else if(strcmp(cmd,"servoWrite") == 0){
-          servos[pin].write(payload); // pin is the servo position in the array
+          servos[payloads[0]].write(payloads[1]); // pin is the servo position in the array
         } else if(strcmp(cmd,"tone") == 0){
-          if(pitch == -1){  // first message containing pitch as payload
-            pitch = payload;
-          } else{           // second message containing time as payload
-            tone(pin, pitch, payload);
-            pitch = -1;
-          }
+          tone(payloads[0], payloads[1], payloads[2]);
         } else if(strcmp(cmd,"noTone") == 0){
-          noTone(pin);
+          noTone(payloads[0]);
         }
+        
         newData = false;
     }
 }
@@ -114,21 +109,24 @@ void parseData() {      // split the data into its parts
 
     strtokIndx = strtok(tempChars,",");      // get the first part - the string
     strcpy(cmd, strtokIndx); // copy it to cmd
- 
+
+    i = -1;
     strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
-    pin = atoi(strtokIndx);     // convert this part to an integer
-
-    strtokIndx = strtok(NULL, ",");
-    payload = atoi(strtokIndx);     // convert this part to an integer
-
+    while(strtokIndx != NULL){
+      i++;
+      payloads[i] = atoi(strtokIndx);
+      strtokIndx = strtok(NULL, ",");
+    }
 }
 
 //============
 
 void showParsedData() {
     if(strcmp(cmd, "servoWrite") == 0){
-      Serial.println("CMD " + String(cmd) + " NAME " + String(pin) + " PAYLOAD " + String(payload));
-    } else{
-      Serial.println("CMD " + String(cmd) + " PIN " + String(pin) + " PAYLOAD " + String(payload));
+      Serial.println("CMD " + String(cmd) + " NAME " + String(payloads[0]) + " PAYLOAD " + String(payloads[1]));
+    } else if(strcmp(cmd, "tone") == 0){
+      Serial.println("CMD " + String(cmd) + " PIN " + String(payloads[0]) + " PITCH " + String(payloads[1]) + " TIME " + String(payloads[2]));
+    }else{
+      Serial.println("CMD " + String(cmd) + " PIN " + String(payloads[0]) + " PAYLOAD " + String(payloads[1]));
     }
 }
