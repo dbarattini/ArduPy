@@ -140,6 +140,9 @@ class Arduino:
     def addPiezo(self, pin):
         return Piezo(pin, self)
 
+    def addTiltSwitch(self, pin):
+        return TiltSwitch(pin, self)
+
     def closeConnection(self):
         self.conn.close()
 
@@ -259,3 +262,13 @@ class Piezo:
 
     def noTone(self):
         self.host.noTone(self.pin)
+
+
+class TiltSwitch:
+    def __init__(self, pin, host):
+        self.pin = pin
+        self.host = host
+        host.setPin(pin, INPUT)
+
+    def isOn(self):
+        return self.host.digitalRead(self.pin)
