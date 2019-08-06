@@ -143,6 +143,9 @@ class Arduino:
     def addTiltSwitch(self, pin):
         return TiltSwitch(pin, self)
 
+    def addDCMotor(self, pin):
+        return DCMotor(pin, self)
+
     def closeConnection(self):
         self.conn.close()
 
@@ -272,3 +275,22 @@ class TiltSwitch:
 
     def isOn(self):
         return self.host.digitalRead(self.pin)
+
+
+class DCMotor:
+    def __init__(self, pin, host):
+        self.pin = pin
+        self.host = host
+        self.state = OFF
+        host.setPin(pin, OUTPUT)
+
+    def turnOn(self):
+        self.host.digitalWrite(self.pin, ON)
+        self.state = ON
+
+    def turnOff(self):
+        self.host.digitalWrite(self.pin, OFF)
+        self.state = OFF
+
+    def getState(self):
+        return self.state

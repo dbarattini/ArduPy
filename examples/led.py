@@ -4,7 +4,7 @@ import time
 # arduino connected to port COM5 with baudrate 9600
 arduino = Arduino("COM5", debug_mode=YES)
 
-led = arduino.addLed(13)    # using led connected to pin 13
+led = arduino.addLed(13)    # using led connected to pin 13 (digital)
 
 led.turnOn()                # turn the led on
 time.sleep(1)

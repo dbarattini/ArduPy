@@ -4,9 +4,10 @@ import time
 # arduino connected to port COM5 with baudrate 9600
 arduino = Arduino("COM5", debug_mode=YES)
 
-piezo = arduino.addPiezo(8)    # using a piezo connected to pin 8
+piezo = arduino.addPiezo(8)    # using a piezo connected to pin 8 (digital)
 
-piezo.tone(50, 100)            #  calls arduino tone function with pitch = 50 and duration = 100ms
+# calls arduino tone function with pitch = 50 and duration = 100ms
+piezo.tone(50, 100)
 
 piezo.noTone()                 # calls arduino noTone function that stops the piezo
 

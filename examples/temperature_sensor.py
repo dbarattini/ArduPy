@@ -3,7 +3,7 @@ from ardupy import *
 # arduino connected to port COM5 with baudrate 9600
 arduino = Arduino("COM5", debug_mode=YES)
 
-ts = arduino.addTemperatureSensor(A0, lambda voltage : (voltage - .5) * 100)    # using a temperature sensor connected to pin A0
+ts = arduino.addTemperatureSensor(A0, lambda voltage : (voltage - .5) * 100)    # using a temperature sensor connected to pin A0 (analog)
                                                                                 # explicited a function for voltage to temperature conversion
 
 temperature = ts.getTemperature()   # returns the temperature calculated

@@ -40,6 +40,7 @@ Learn from these examples:
 - [use a potentiometer](https://github.com/dbarattini/ArduPy/blob/master/examples/potentiometer.py)
 - [use a piezo](https://github.com/dbarattini/ArduPy/blob/master/examples/piezo.py)
 - [use a tilt switch](https://github.com/dbarattini/ArduPy/blob/master/examples/tiltSwitch.py)
+- [use a dc motor]()
 
 You can also use ArduPy to comunicate directly to arduino
 
@@ -56,3 +57,4 @@ You can also use ArduPy to comunicate directly to arduino
 - potentiometer
 - piezo
 - tilt switch
+- dc motor

@@ -5,9 +5,9 @@ import time
 arduino = Arduino("COM5", debug_mode=YES)
 
 led_rgb = arduino.addLedRGB(6, 5, 3)    # using an rgb led connected like:
-#   RED   -> pin 6
-#   GREEN -> pin 5
-#   BLUE  -> pin 3
+#   RED   -> pin 6 (pwm)
+#   GREEN -> pin 5 (pwm)
+#   BLUE  -> pin 3 (pwm)
 
 led_rgb.setRedValue(150)    # sets red color to 150 (value in [0, 255])
 led_rgb.setGreenValue(100)
