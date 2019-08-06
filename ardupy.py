@@ -281,16 +281,20 @@ class DCMotor:
     def __init__(self, pin, host):
         self.pin = pin
         self.host = host
-        self.state = OFF
+        self.speed = 0
         host.setPin(pin, OUTPUT)
 
     def turnOn(self):
         self.host.digitalWrite(self.pin, ON)
-        self.state = ON
+        self.speed = 255
 
     def turnOff(self):
         self.host.digitalWrite(self.pin, OFF)
-        self.state = OFF
+        self.speed = 0
 
-    def getState(self):
-        return self.state
+    def setSpeed(self, speed):
+        self.host.analogWrite(self.pin, speed)
+        self.speed = speed
+
+    def getSpeed(self):
+        return self.speed

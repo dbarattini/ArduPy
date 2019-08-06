@@ -4,12 +4,19 @@ import time
 # arduino connected to port COM5 with baudrate 9600
 arduino = Arduino("COM5", debug_mode=YES)
 
-dc_motor = arduino.addDCMotor(9)    # using a dc motor connected through a mosfet to pin 9 (digital)
+# using a dc motor connected through a mosfet to pin 9 (pwm)
+dc_motor = arduino.addDCMotor(9)
 
-dc_motor.turnOn()                   # turn the motor on
-time.sleep(1)
-dc_motor.turnOff()                  # turn the motor off
+dc_motor.turnOn()                   # turn the motor on (set speed to 255)
+time.sleep(5)
+dc_motor.turnOff()                  # turn the motor off ( set speed to 0)
 
-dc_motor_state = dc_motor.getState()  # get motor state (1 = on, 0 = off)
+time.sleep(5)
+# set motor speed to 150 (value in [0, 255])
+dc_motor.setSpeed(150)
+time.sleep(5)
+dc_motor.turnOff()
+
+dc_motor_speed = dc_motor.getSpeed()  # get motor speed (value in [0, 255])
 
 arduino.closeConnection()   # close connection to arduino
