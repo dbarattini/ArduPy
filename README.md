@@ -39,7 +39,7 @@ Learn from these examples:
 - [use a servo](https://github.com/dbarattini/ArduPy/blob/master/examples/servo.py)
 - [use a potentiometer](https://github.com/dbarattini/ArduPy/blob/master/examples/potentiometer.py)
 - [use a piezo](https://github.com/dbarattini/ArduPy/blob/master/examples/piezo.py)
-- [use a tilt switch]()
+- [use a tilt switch](https://github.com/dbarattini/ArduPy/blob/master/examples/tiltSwitch.py)
 
 You can also use ArduPy to comunicate directly to arduino
 
