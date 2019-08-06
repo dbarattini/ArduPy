@@ -139,6 +139,9 @@ class Arduino:
     def addDCMotor(self, pin):
         return DCMotor(pin, self)
 
+    def addHBridgedDCMotor(self, pin_en1, pin_in1, pin_in2):
+        return HBridgedDCMotor(pin_en1, pin_in1, pin_in2, self)
+
     def closeConnection(self):
         self.conn.close()
 
@@ -287,6 +290,48 @@ class DCMotor:
 
     def setSpeed(self, speed):
         self.host.analogWrite(self.pin, speed)
+        self.speed = speed
+
+    def getSpeed(self):
+        return self.speed
+
+class HBridgedDCMotor:
+    def __init__(self, pin_en1, pin_in1, pin_in2, host):
+        self.pin_en1 = pin_en1
+        self.pin_in1 = pin_in1
+        self.pin_in2 = pin_in2
+        self.host = host
+        self.speed = 0
+        self.direction = 0
+        host.setPin(pin_en1, OUTPUT)
+        host.setPin(pin_in1, OUTPUT)
+        host.setPin(pin_in2, OUTPUT)
+        self.host.digitalWrite(self.pin_in1, HIGH)
+        self.host.digitalWrite(self.pin_in2, LOW)
+
+    def changeDirection(self):
+        self.direction = 1 - self.direction
+
+        if(self.direction == 0 ):
+            self.host.digitalWrite(self.pin_in1, HIGH)
+            self.host.digitalWrite(self.pin_in2, LOW)
+        else:
+            self.host.digitalWrite(self.pin_in1, LOW)
+            self.host.digitalWrite(self.pin_in2, HIGH)
+
+    def getDirection(self):
+        return self.direction
+
+    def turnOn(self):
+        self.host.digitalWrite(self.pin_en1, ON)
+        self.speed = 255
+
+    def turnOff(self):
+        self.host.digitalWrite(self.pin_en1, OFF)
+        self.speed = 0
+
+    def setSpeed(self, speed):
+        self.host.analogWrite(self.pin_en1, speed)
         self.speed = speed
 
     def getSpeed(self):

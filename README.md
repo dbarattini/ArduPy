@@ -41,6 +41,7 @@ Learn from these examples:
 - [use a piezo](https://github.com/dbarattini/ArduPy/blob/master/examples/piezo.py)
 - [use a tilt switch](https://github.com/dbarattini/ArduPy/blob/master/examples/tiltSwitch.py)
 - [use a dc motor](https://github.com/dbarattini/ArduPy/blob/master/examples/dc_motor.py)
+- [use a dc motor through an h-bridge]()
 
 You can also use ArduPy to comunicate directly to arduino
 
@@ -58,3 +59,4 @@ You can also use ArduPy to comunicate directly to arduino
 - piezo
 - tilt switch
 - dc motor
+- dc motor connected through an h-bridge
