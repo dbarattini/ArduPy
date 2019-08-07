@@ -316,6 +316,9 @@ class Piezo:
     def noTone(self):
         self.host.noTone(self.pin)
 
+    def getValue(self):
+        return self.host.analogRead(self.pin)
+
 
 class TiltSwitch:
     def __init__(self, pin, host):
