@@ -1,6 +1,8 @@
 from ardupy import *
 import time
 
+# ardupy.ino use Servo.h
+
 # arduino connected to port COM5 with baudrate 9600
 arduino = Arduino("COM5", debug_mode=YES)
 

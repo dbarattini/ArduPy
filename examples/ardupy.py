@@ -109,6 +109,51 @@ class Arduino:
         else:
             self.conn.readline().decode()
 
+    def lcdCreate(self, pin_rs, pin_en, pin_d4, pin_d5, pin_d6, pin_d7):
+        self.conn.write(
+            ("<lcdCreate, " + str(pin_rs) + ", " + str(pin_en) + "," + str(pin_d4) + ", " + str(pin_d5) +  ", " + str(pin_d6) + ", " + str(pin_d7) + ">").encode())
+        self.conn.flush()
+        if(self.debug_mode):
+            print("ARDUINO:", self.conn.readline().decode(), end="")
+        else:
+            self.conn.readline().decode()
+
+    def lcdBegin(self, n_columns, n_rows):
+        self.conn.write(
+            ("<lcdBegin, " + str(n_columns) + ", " + str(n_rows) + ">").encode())
+        self.conn.flush()
+        if(self.debug_mode):
+            print("ARDUINO:", self.conn.readline().decode(), end="")
+        else:
+            self.conn.readline().decode()
+
+    def lcdPrint(self, text):
+        self.conn.write(
+            ("<lcdPrint, " + text + ">").encode())
+        self.conn.flush()
+        if(self.debug_mode):
+            print("ARDUINO:", self.conn.readline().decode(), end="")
+        else:
+            self.conn.readline().decode()
+
+    def lcdClear(self):
+        self.conn.write(
+            ("<lcdClear, 0>").encode())
+        self.conn.flush()
+        if(self.debug_mode):
+            print("ARDUINO:", self.conn.readline().decode(), end="")
+        else:
+            self.conn.readline().decode()
+
+    def lcdSetCursor(self, column, row):
+        self.conn.write(
+            ("<ledSetCursor, " + str(column) + ", " + str(row) + ">").encode())
+        self.conn.flush()
+        if(self.debug_mode):
+            print("ARDUINO:", self.conn.readline().decode(), end="")
+        else:
+            self.conn.readline().decode()
+
     def addLed(self, pin):
         return Led(pin, self)
 
@@ -141,6 +186,15 @@ class Arduino:
 
     def addHBridgedDCMotor(self, pin_en1, pin_in1, pin_in2):
         return HBridgedDCMotor(pin_en1, pin_in1, pin_in2, self)
+    
+    """
+    def addLCDDisplay(self, pin_rs, pin_en, pin_d4, pin_d5, pin_d6, pin_d7):
+        return LCDDisplay(pin_rs, pin_en, pin_d4, pin_d5, pin_d6, pin_d7, self)
+    """
+
+    def addLCD(self):
+        print("REMEMBER TO DEFINE YOUR LCD IN ARDUPY.INO!")
+        return LCD(self)
 
     def closeConnection(self):
         self.conn.close()
@@ -336,3 +390,33 @@ class HBridgedDCMotor:
 
     def getSpeed(self):
         return self.speed
+
+class LCD:
+    """
+    def __init__(self, pin_rs, pin_en, pin_d4, pin_d5, pin_d6, pin_d7, host):
+        self.host = host
+        self.text = ""
+        host.lcdCreate(pin_rs, pin_en, pin_d4, pin_d5, pin_d6, pin_d7) # doesn't work on arduino
+    """
+
+    def __init__(self, host):
+        self.host = host
+        self.text = ""
+
+    def begin(self, n_columns, n_rows):
+        self.host.lcdBegin(n_columns, n_rows)
+
+
+    def print(self, text):
+        self.host.lcdPrint(text)
+        self.text = text
+
+    def setCursor(self, column, row):
+        self.host.lcdSetCursor(column, row)
+
+    def clear(self):
+        self.host.lcdClear()
+        self.text = ""
+
+    def getText(self):
+        return self.text

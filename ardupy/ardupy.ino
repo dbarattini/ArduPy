@@ -1,4 +1,5 @@
 #include <Servo.h>
+#include "LiquidCrystal.h"
 
 const byte numChars = 32;
 const byte maxServos = 9;
@@ -10,10 +11,16 @@ int n_servos = 0;
 
       // variables to hold the parsed data
 char cmd[numChars] = {0};
-int payloads[32];
+char payloads[10][32];
 int i = -1;
+int n_payloads = 0;
 
 boolean newData = false;
+
+// if you are using an LCD comment the first line and uncomment and modify the second line
+LiquidCrystal lcd(-1, -1, -1, -1, -1, -1);  // ! FAKE lcd (can't initialize without constructor)
+//LiquidCrystal lcd(12, 11, 5, 4, 3, 2);      // ! REAL lcd (modify with your pins)
+// when you are NOT using an lcd uncomment the first line and comment the second
 
 //============
 
@@ -21,7 +28,7 @@ void setup() {
     Serial.begin(9600);
     Serial.println("This program expects pieces of data - text: a string (command), an sequence of integers (payload)");
     Serial.println("Enter data in this style <pinMode, 13, 1>  ");
-    Serial.println("Input -> 0 | Output -> 1 | Low -> 0 | High -> 1");
+    Serial.println("Input -> 0 | Output -> 1 | Low -> 0 | High -> 1"); 
 }
 
 //============
@@ -36,19 +43,19 @@ void loop() {
         showParsedData();
         
         if(strcmp(cmd,"pinMode") == 0){
-          pinMode(payloads[0], payloads[1]);
+          pinMode(atoi(payloads[0]), atoi(payloads[1]));
         } else if(strcmp(cmd,"digitalWrite") == 0){
-          digitalWrite(payloads[0], payloads[1]);
+          digitalWrite(atoi(payloads[0]), atoi(payloads[1]));
         } else if(strcmp(cmd,"digitalRead") == 0){
-          Serial.println(digitalRead(payloads[0]));
+          Serial.println(digitalRead(atoi(payloads[0])));
         } else if(strcmp(cmd,"analogRead") == 0){
-          Serial.println(analogRead(payloads[0]));
+          Serial.println(analogRead(atoi(payloads[0])));
         } else if(strcmp(cmd,"analogWrite") == 0){
-          analogWrite(payloads[0], payloads[1]);
+          analogWrite(atoi(payloads[0]), atoi(payloads[1]));
         } else if(strcmp(cmd,"servoAttach") == 0){
           if(n_servos < maxServos){
             Servo newServo;
-            newServo.attach(payloads[0]);
+            newServo.attach(atoi(payloads[0]));
             servos[n_servos] = newServo;
             Serial.println(n_servos);
             n_servos ++;
@@ -56,13 +63,22 @@ void loop() {
             Serial.println(-1);
           }      
         } else if(strcmp(cmd,"servoWrite") == 0){
-          servos[payloads[0]].write(payloads[1]); // pin is the servo position in the array
+          servos[atoi(payloads[0])].write(atoi(payloads[1])); // pin is the servo position in the array
         } else if(strcmp(cmd,"tone") == 0){
-          tone(payloads[0], payloads[1], payloads[2]);
+          tone(atoi(payloads[0]), atoi(payloads[1]), atoi(payloads[2]));
         } else if(strcmp(cmd,"noTone") == 0){
-          noTone(payloads[0]);
+          noTone(atoi(payloads[0]));
+        } else if(strcmp(cmd,"lcdCreate") == 0){
+          // LiquidCrystal lcd(atoi(payloads[0]), atoi(payloads[1]),atoi(payloads[2]),atoi(payloads[3]),atoi(payloads[4]), atoi(payloads[5])); // doesn't work
+        } else if(strcmp(cmd,"lcdBegin") == 0){
+          lcd.begin(atoi(payloads[0]), atoi(payloads[1]));
+        } else if(strcmp(cmd,"lcdPrint") == 0){
+          lcd.print(payloads[0]);
+        } else if(strcmp(cmd,"lcdSetCursor") == 0){
+          lcd.setCursor(atoi(payloads[0]), atoi(payloads[1]));
+        } else if(strcmp(cmd,"lcdClear") == 0){
+          lcd.clear();
         }
-        
         newData = false;
     }
 }
@@ -114,9 +130,10 @@ void parseData() {      // split the data into its parts
     strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
     while(strtokIndx != NULL){
       i++;
-      payloads[i] = atoi(strtokIndx);
+      strcpy(payloads[i], strtokIndx);
       strtokIndx = strtok(NULL, ",");
     }
+    n_payloads = i + 1;
 }
 
 //============

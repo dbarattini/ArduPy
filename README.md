@@ -42,6 +42,7 @@ Learn from these examples:
 - [use a tilt switch](https://github.com/dbarattini/ArduPy/blob/master/examples/tiltSwitch.py)
 - [use a dc motor](https://github.com/dbarattini/ArduPy/blob/master/examples/dc_motor.py)
 - [use a dc motor through an h-bridge]()
+- [use an lcd]()
 
 You can also use ArduPy to comunicate directly to arduino
 
@@ -60,3 +61,4 @@ You can also use ArduPy to comunicate directly to arduino
 - tilt switch
 - dc motor
 - dc motor connected through an h-bridge
+- lcd
